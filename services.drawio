@@ -1,0 +1,81 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="CampusEats Services" id="x_J6oQioM5RPNFldw82x">
+    <mxGraphModel dx="1290" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;" value="&lt;b&gt;CampusEats — Service Design Benchmark&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#666666&quot;&gt;Capabilities → Data Ownership → Service Boundaries → Contracts&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="1000" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-2" parent="1" style="shape=note;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" value="&lt;b&gt;Boundary Rule:&lt;/b&gt; Each service owns its data. Other services access that data only through the service contract." vertex="1">
+          <mxGeometry height="55" width="1500" x="40" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=10;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="&lt;b&gt;Accounts Service&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Owns:&lt;/b&gt; users, addresses, login&lt;br&gt;&lt;br&gt;&lt;b&gt;Member:&lt;/b&gt; Kaushik Rakshit&lt;br&gt;&lt;br&gt;&lt;b&gt;Contract:&lt;/b&gt;&lt;br&gt;authenticateUser · getUser · getAddress" vertex="1">
+          <mxGeometry height="210" width="280" x="60" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=10;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="&lt;b&gt;Catalogue Service&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Owns:&lt;/b&gt; restaurants, menus, prices&lt;br&gt;&lt;br&gt;&lt;b&gt;Member:&lt;/b&gt; Uday Gupta&lt;br&gt;&lt;br&gt;&lt;b&gt;Contract:&lt;/b&gt;&lt;br&gt;listRestaurants · getMenu · checkItem" vertex="1">
+          <mxGeometry height="210" width="300" x="430" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=10;strokeWidth=3;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="&lt;b&gt;Orders Service ★ MAIN&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Owns:&lt;/b&gt; carts, orders, status&lt;br&gt;&lt;br&gt;&lt;b&gt;Member:&lt;/b&gt; Yash Raj&lt;br&gt;&lt;br&gt;&lt;b&gt;Contract:&lt;/b&gt;&lt;br&gt;placeOrder · getOrder · cancelOrder · updateStatus" vertex="1">
+          <mxGeometry height="230" width="320" x="850" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=10;strokeWidth=3;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" value="&lt;b&gt;Payments Service ★ MAIN&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Owns:&lt;/b&gt; transactions, refunds&lt;br&gt;&lt;br&gt;&lt;b&gt;Member:&lt;/b&gt; Mukesh Mourya&lt;br&gt;&lt;br&gt;&lt;b&gt;Contract:&lt;/b&gt;&lt;br&gt;authorizePayment · capturePayment · refundPayment" vertex="1">
+          <mxGeometry height="210" width="300" x="1370" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=10;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" value="&lt;b&gt;Delivery Service&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Owns:&lt;/b&gt; riders, assignments&lt;br&gt;&lt;br&gt;&lt;b&gt;Member:&lt;/b&gt; Ritesh Jadhav&lt;br&gt;&lt;br&gt;&lt;b&gt;Contract:&lt;/b&gt;&lt;br&gt;assignRider · getAssignment · updateDeliveryStatus" vertex="1">
+          <mxGeometry height="220" width="320" x="500" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=10;strokeWidth=2;fillColor=#e2f0d9;strokeColor=#6aa84f;fontSize=13;" value="&lt;b&gt;Notifications Service&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Owns:&lt;/b&gt; message log&lt;br&gt;&lt;br&gt;&lt;b&gt;Member:&lt;/b&gt; Mukesh Mourya&lt;br&gt;&lt;br&gt;&lt;b&gt;Contract:&lt;/b&gt;&lt;br&gt;sendNotification · getMessageStatus · logMessage" vertex="1">
+          <mxGeometry height="220" width="320" x="1200" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-11" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" value="getUser">
+          <mxGeometry relative="1" y="25" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="920" y="435" />
+              <mxPoint x="240" y="435" />
+            </Array>
+            <mxPoint x="920" y="420" as="sourcePoint" />
+            <mxPoint x="240" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-12" edge="1" parent="1" source="L5PzngXbtcupCgGQ2S_0-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" target="L5PzngXbtcupCgGQ2S_0-4" value="checkItem">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-13" edge="1" parent="1" source="L5PzngXbtcupCgGQ2S_0-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" target="L5PzngXbtcupCgGQ2S_0-6" value="authorizePayment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-14" edge="1" parent="1" source="L5PzngXbtcupCgGQ2S_0-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" target="L5PzngXbtcupCgGQ2S_0-5" value="PaymentSucceeded">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-15" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="L5PzngXbtcupCgGQ2S_0-7" value="createDelivery">
+          <mxGeometry relative="1" x="-0.6552" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="850" y="360" as="sourcePoint" />
+            <mxPoint x="740" y="648.67" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-16" edge="1" parent="1" source="L5PzngXbtcupCgGQ2S_0-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" target="L5PzngXbtcupCgGQ2S_0-5" value="DeliveryStatusChanged">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-17" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" value="OrderCreated">
+          <mxGeometry relative="1" x="-0.2903" y="-20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1140" y="450" />
+              <mxPoint x="1330" y="450" />
+            </Array>
+            <mxPoint x="1140" y="420" as="sourcePoint" />
+            <mxPoint x="1330" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-18" edge="1" parent="1" source="L5PzngXbtcupCgGQ2S_0-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" target="L5PzngXbtcupCgGQ2S_0-8" value="PaymentSucceeded">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L5PzngXbtcupCgGQ2S_0-19" edge="1" parent="1" source="L5PzngXbtcupCgGQ2S_0-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;" target="L5PzngXbtcupCgGQ2S_0-8" value="DeliveryStatusChanged">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

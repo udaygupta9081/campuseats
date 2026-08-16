@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="CampusEats Database Schema" id="TSXC3R32RZ3x1r4zOmjU">
+    <mxGraphModel dx="1935" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-1" parent="1" style="swimlane;html=1;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="ACCOUNTS SERVICE" vertex="1">
+          <mxGeometry height="422.5" width="360" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-2" parent="bXsmmBU8mE_ZPuYNJXKa-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" value="&lt;b&gt;users&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;name : VARCHAR(100)&lt;br&gt;email : VARCHAR(150) UNIQUE&lt;br&gt;password_hash : VARCHAR(255)&lt;br&gt;phone : VARCHAR(20)&lt;br&gt;created_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="145" width="320" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-3" parent="bXsmmBU8mE_ZPuYNJXKa-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" value="&lt;b&gt;addresses&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;user_id : BIGINT FK → users.id&lt;br&gt;label : VARCHAR(50)&lt;br&gt;address_line : VARCHAR(255)&lt;br&gt;city : VARCHAR(100)&lt;br&gt;pincode : VARCHAR(10)&lt;br&gt;is_default : BOOLEAN" vertex="1">
+          <mxGeometry height="125" width="320" x="20" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-5" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-1" source="bXsmmBU8mE_ZPuYNJXKa-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-3" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-7" parent="1" style="swimlane;html=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="CATALOGUE SERVICE" vertex="1">
+          <mxGeometry height="500" width="360" x="440" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-8" parent="bXsmmBU8mE_ZPuYNJXKa-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;b&gt;restaurants&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;name : VARCHAR(150)&lt;br&gt;description : TEXT&lt;br&gt;address : VARCHAR(255)&lt;br&gt;phone : VARCHAR(20)&lt;br&gt;is_open : BOOLEAN&lt;br&gt;created_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="145" width="320" x="20" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-9" parent="bXsmmBU8mE_ZPuYNJXKa-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;b&gt;menus&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;restaurant_id : BIGINT FK → restaurants.id&lt;br&gt;name : VARCHAR(150)&lt;br&gt;description : TEXT&lt;br&gt;is_available : BOOLEAN" vertex="1">
+          <mxGeometry height="125" width="320" x="20" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-10" parent="bXsmmBU8mE_ZPuYNJXKa-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;b&gt;prices&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;menu_id : BIGINT FK → menus.id&lt;br&gt;price : DECIMAL(10,2)&lt;br&gt;effective_from : TIMESTAMP&lt;br&gt;effective_to : TIMESTAMP" vertex="1">
+          <mxGeometry height="125" width="320" x="20" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-11" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-7" source="bXsmmBU8mE_ZPuYNJXKa-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-9" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-12" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-7" source="bXsmmBU8mE_ZPuYNJXKa-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-10" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-13" parent="1" style="swimlane;html=1;rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="ORDERS SERVICE" vertex="1">
+          <mxGeometry height="500" width="360" x="830" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-14" parent="bXsmmBU8mE_ZPuYNJXKa-13" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;" value="&lt;b&gt;carts&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;user_id : BIGINT&lt;br&gt;status : VARCHAR(30)&lt;br&gt;created_at : TIMESTAMP&lt;br&gt;updated_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="125" width="320" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-28" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-13" source="bXsmmBU8mE_ZPuYNJXKa-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="bXsmmBU8mE_ZPuYNJXKa-16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-15" parent="bXsmmBU8mE_ZPuYNJXKa-13" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;" value="&lt;b&gt;cart_items&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;cart_id : BIGINT FK → carts.id&lt;br&gt;menu_id : BIGINT&lt;br&gt;quantity : INT" vertex="1">
+          <mxGeometry height="110" width="320" x="20" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-16" parent="bXsmmBU8mE_ZPuYNJXKa-13" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;" value="&lt;b&gt;orders&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;user_id : BIGINT&lt;br&gt;restaurant_id : BIGINT&lt;br&gt;total_amount : DECIMAL(10,2)&lt;br&gt;status : VARCHAR(30)&lt;br&gt;delivery_address : VARCHAR(255)&lt;br&gt;created_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="145" width="320" x="20" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-17" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-13" source="bXsmmBU8mE_ZPuYNJXKa-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-15" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-18" parent="1" style="swimlane;html=1;rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" value="PAYMENTS SERVICE" vertex="1">
+          <mxGeometry height="450" width="360" x="1235" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-19" parent="bXsmmBU8mE_ZPuYNJXKa-18" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;b&gt;transactions&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;order_id : BIGINT&lt;br&gt;user_id : BIGINT&lt;br&gt;amount : DECIMAL(10,2)&lt;br&gt;payment_method : VARCHAR(30)&lt;br&gt;status : VARCHAR(30)&lt;br&gt;transaction_ref : VARCHAR(100)&lt;br&gt;created_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="165" width="320" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-20" parent="bXsmmBU8mE_ZPuYNJXKa-18" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;b&gt;refunds&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;transaction_id : BIGINT FK → transactions.id&lt;br&gt;amount : DECIMAL(10,2)&lt;br&gt;reason : VARCHAR(255)&lt;br&gt;status : VARCHAR(30)&lt;br&gt;created_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="135" width="320" x="20" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-21" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-18" source="bXsmmBU8mE_ZPuYNJXKa-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-20" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-22" parent="1" style="swimlane;html=1;rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="DELIVERY SERVICE" vertex="1">
+          <mxGeometry height="430" width="360" x="440" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-23" parent="bXsmmBU8mE_ZPuYNJXKa-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" value="&lt;b&gt;riders&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;name : VARCHAR(100)&lt;br&gt;phone : VARCHAR(20)&lt;br&gt;vehicle_type : VARCHAR(50)&lt;br&gt;status : VARCHAR(30)&lt;br&gt;created_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="140" width="320" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-24" parent="bXsmmBU8mE_ZPuYNJXKa-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" value="&lt;b&gt;assignments&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;order_id : BIGINT&lt;br&gt;rider_id : BIGINT FK → riders.id&lt;br&gt;status : VARCHAR(30)&lt;br&gt;assigned_at : TIMESTAMP&lt;br&gt;delivered_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="140" width="320" x="20" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-25" edge="1" parent="bXsmmBU8mE_ZPuYNJXKa-22" source="bXsmmBU8mE_ZPuYNJXKa-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-24" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-26" parent="1" style="swimlane;html=1;rounded=1;fillColor=#cce5ff;strokeColor=#5b9bd5;fontStyle=1;" value="NOTIFICATIONS SERVICE" vertex="1">
+          <mxGeometry height="330" width="360" x="830" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-27" parent="bXsmmBU8mE_ZPuYNJXKa-26" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5b9bd5;" value="&lt;b&gt;message_log&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;user_id : BIGINT&lt;br&gt;type : VARCHAR(30)&lt;br&gt;channel : VARCHAR(30)&lt;br&gt;message : TEXT&lt;br&gt;status : VARCHAR(30)&lt;br&gt;sent_at : TIMESTAMP" vertex="1">
+          <mxGeometry height="155" width="320" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" value="&lt;b&gt;login&lt;/b&gt;&lt;br&gt;----------------&lt;br&gt;id : BIGINT PK&lt;br&gt;user_id : BIGINT FK → users.id&lt;br&gt;last_login_at : TIMESTAMP&lt;br&gt;failed_attempts : INT&lt;br&gt;account_locked : BOOLEAN" vertex="1">
+          <mxGeometry height="120" width="320" x="50" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="bXsmmBU8mE_ZPuYNJXKa-6" edge="1" parent="1" source="bXsmmBU8mE_ZPuYNJXKa-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" target="bXsmmBU8mE_ZPuYNJXKa-4" value="1 : N">
+          <mxGeometry relative="1" x="0.4637" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="20" y="172.5" />
+              <mxPoint x="20" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
