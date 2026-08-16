@@ -15,6 +15,16 @@ This repository contains the work for Assignment 1:
 - CampusEats system brief
 - Project documentation
 
+## Team Members
+
+| Name | Roll No. |
+|---|---|
+| Uday Kumar Gupta | 20251651098 |
+| Ritesh Jadhav | 20251651046 |
+| Mukesh Mourya | 20251651059 |
+| Koushik | 20251651052 |
+| Yash | 20251651105 |
+
 ## Project Structure
 
 - `README.md` — Project overview
