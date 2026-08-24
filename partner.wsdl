@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://payments.campuseats.example.com/"
+    targetNamespace="http://payments.campuseats.example.com/"
+    name="CampusEatsPaymentService">
+
+    <!-- ===================================================== -->
+    <!-- 1. TYPES                                              -->
+    <!-- ===================================================== -->
+
+    <types>
+
+        <xsd:schema
+            targetNamespace="http://payments.campuseats.example.com/"
+            elementFormDefault="qualified">
+
+            <!-- Authentication Header -->
+
+            <xsd:element name="Credentials">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="merchantId" type="xsd:string"/>
+                        <xsd:element name="apiKey" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+
+            <!-- Charge Request -->
+
+            <xsd:element name="charge">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="orderId" type="xsd:string"/>
+                        <xsd:element name="amount" type="xsd:decimal"/>
+                        <xsd:element name="currency" type="xsd:string"/>
+                        <xsd:element name="cardToken" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+
+            <!-- Charge Response -->
+
+            <xsd:element name="chargeResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="transactionId" type="xsd:string"/>
+                        <xsd:element name="status" type="xsd:string"/>
+                        <xsd:element name="amount" type="xsd:decimal"/>
+                        <xsd:element name="currency" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+
+            <!-- Payment Fault -->
+
+            <xsd:element name="PaymentFault">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="code" type="xsd:string"/>
+                        <xsd:element name="message" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:schema>
+
+    </types>
+
+
+    <!-- ===================================================== -->
+    <!-- 2. MESSAGES                                           -->
+    <!-- ===================================================== -->
+
+    <!-- SOAP Header message -->
+
+    <message name="CredentialsHeader">
+        <part
+            name="credentials"
+            element="tns:Credentials"/>
+    </message>
+
+
+    <!-- Request message -->
+
+    <message name="ChargeRequest">
+        <part
+            name="parameters"
+            element="tns:charge"/>
+    </message>
+
+
+    <!-- Response message -->
+
+    <message name="ChargeResponse">
+        <part
+            name="parameters"
+            element="tns:chargeResponse"/>
+    </message>
+
+
+    <!-- Fault message -->
+
+    <message name="PaymentFault">
+        <part
+            name="detail"
+            element="tns:PaymentFault"/>
+    </message>
+
+
+    <!-- ===================================================== -->
+    <!-- 3. PORT TYPE                                           -->
+    <!-- ===================================================== -->
+
+    <portType name="PaymentPortType">
+
+        <operation name="charge">
+
+            <documentation>
+                Charges a customer's payment method for a CampusEats order.
+            </documentation>
+
+            <input message="tns:ChargeRequest"/>
+
+            <output message="tns:ChargeResponse"/>
+
+            <fault
+                name="PaymentFault"
+                message="tns:PaymentFault"/>
+
+        </operation>
+
+    </portType>
+
+
+    <!-- ===================================================== -->
+    <!-- 4. BINDING                                             -->
+    <!-- ===================================================== -->
+
+    <binding
+        name="PaymentSoapBinding"
+        type="tns:PaymentPortType">
+
+        <soap:binding
+            style="document"
+            transport="http://schemas.xmlsoap.org/soap/http"/>
+
+
+        <operation name="charge">
+
+            <soap:operation
+                soapAction="http://payments.campuseats.example.com/charge"/>
+
+            <!-- Request -->
+
+            <input>
+
+                <soap:body
+                    use="literal"/>
+
+                <soap:header
+                    message="tns:CredentialsHeader"
+                    part="credentials"
+                    use="literal"/>
+
+            </input>
+
+
+            <!-- Response -->
+
+            <output>
+
+                <soap:body
+                    use="literal"/>
+
+            </output>
+
+
+            <!-- Fault -->
+
+            <fault name="PaymentFault">
+
+                <soap:fault
+                    name="PaymentFault"
+                    use="literal"/>
+
+            </fault>
+
+        </operation>
+
+    </binding>
+
+
+    <!-- ===================================================== -->
+    <!-- 5. SERVICE                                             -->
+    <!-- ===================================================== -->
+
+    <service name="CampusEatsPaymentService">
+
+        <documentation>
+            External payment service used by CampusEats.
+        </documentation>
+
+
+        <!-- ================================================= -->
+        <!-- 6. PORT                                            -->
+        <!-- ================================================= -->
+
+        <port
+            name="PaymentPort"
+            binding="tns:PaymentSoapBinding">
+
+            <soap:address
+                location="https://payments.example.com/campuseats/PaymentService"/>
+
+        </port>
+
+    </service>
+
+</definitions>

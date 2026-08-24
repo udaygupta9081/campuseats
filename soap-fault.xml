@@ -1,0 +1,29 @@
+<!-- This becomes important in Task 6, where your teammate will map:
+
+CARD_DECLINED
+
+to the CampusEats contract's error such as:
+
+PAYMENT_DECLINED -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<soap:Envelope
+    xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:pay="http://payments.campuseats.example.com/">
+
+    <soap:Header/>
+
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>soap:Client</faultcode>
+            <faultstring>Payment was declined</faultstring>
+            <detail>
+                <pay:PaymentFault>
+                    <pay:code>CARD_DECLINED</pay:code>
+                    <pay:message>The payment card was declined by the issuer.</pay:message>
+                </pay:PaymentFault>
+            </detail>
+        </soap:Fault>
+    </soap:Body>
+
+</soap:Envelope>

@@ -1,0 +1,27 @@
+<!-- orderId
+amount
+currency
+cardToken -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<soap:Envelope
+    xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:pay="http://payments.campuseats.example.com/">
+
+    <soap:Header>
+        <pay:Credentials>
+            <pay:merchantId>CAMPUS_EATS</pay:merchantId>
+            <pay:apiKey>demo-key-12345</pay:apiKey>
+        </pay:Credentials>
+    </soap:Header>
+
+    <soap:Body>
+        <pay:charge>
+            <pay:orderId>CE-1001</pay:orderId>
+            <pay:amount>499.00</pay:amount>
+            <pay:currency>INR</pay:currency>
+            <pay:cardToken>tok_demo_123456</pay:cardToken>
+        </pay:charge>
+    </soap:Body>
+
+</soap:Envelope>
