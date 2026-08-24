@@ -3,7 +3,7 @@ amount
 currency
 cardToken -->
 <?xml version="1.0" encoding="UTF-8"?>
-
+  
 <soap:Envelope
     xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
     xmlns:pay="http://payments.campuseats.example.com/">

@@ -19,4 +19,4 @@ amount -->
         </pay:chargeResponse>
     </soap:Body>
 
-</soap:Envelope>
+</soap:Envelope>  
