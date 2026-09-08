@@ -1,0 +1,38 @@
+
+> campuseats-assignment4-orders@1.0.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: create succeeds with 201 and Location header
+ok 1 - create succeeds with 201 and Location header
+  ---
+  duration_ms: 27.693995
+  type: 'test'
+  ...
+# Subtest: idempotent repeat returns the original result
+ok 2 - idempotent repeat returns the original result
+  ---
+  duration_ms: 10.363804
+  type: 'test'
+  ...
+# Subtest: malformed body returns a common 400 problem shape
+ok 3 - malformed body returns a common 400 problem shape
+  ---
+  duration_ms: 4.224495
+  type: 'test'
+  ...
+# Subtest: unknown id returns 404
+ok 4 - unknown id returns 404
+  ---
+  duration_ms: 2.095948
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 196.752647

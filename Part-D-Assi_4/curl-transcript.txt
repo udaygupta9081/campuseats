@@ -1,0 +1,65 @@
+$ curl -i -X POST http://localhost:3000/orders -H "Content-Type: application/json" -H "Idempotency-Key: order-1001" -d ...
+HTTP/1.1 201 Created
+content-type: application/json; charset=utf-8
+Location: /orders/1000
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"id":"1000","userId":1,"restaurantId":10,"totalAmount":250,"currency":"INR","deliveryAddress":"Hostel Block A","status":"PLACED","createdAt":"2026-09-08T13:20:48.040Z"}
+$ curl -i -X POST http://localhost:3000/orders (same Idempotency-Key)
+HTTP/1.1 201 Created
+content-type: application/json; charset=utf-8
+Location: /orders/1000
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"id":"1000","userId":1,"restaurantId":10,"totalAmount":250,"currency":"INR","deliveryAddress":"Hostel Block A","status":"PLACED","createdAt":"2026-09-08T13:20:48.040Z"}
+$ curl -i -X POST http://localhost:3000/orders (malformed body)
+HTTP/1.1 400 Bad Request
+content-type: application/problem+json; charset=utf-8
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"type":"https://campuseats.example.com/problems/400","title":"Malformed request body","status":400,"detail":"Request body is not valid JSON."}
+$ curl -i http://localhost:3000/orders/999999
+HTTP/1.1 404 Not Found
+content-type: application/problem+json; charset=utf-8
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"type":"https://campuseats.example.com/problems/404","title":"Order not found","status":404,"detail":"No order exists with id 999999."}
+$ curl -i -X POST http://localhost:3000/orders/1000/cancellation
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"id":"1000","userId":1,"restaurantId":10,"totalAmount":250,"currency":"INR","deliveryAddress":"Hostel Block A","status":"CANCELLED","createdAt":"2026-09-08T13:20:48.040Z"}
+$ curl -i -X POST http://localhost:3000/orders/1000/cancellation (state conflict)
+HTTP/1.1 409 Conflict
+content-type: application/problem+json; charset=utf-8
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"type":"https://campuseats.example.com/problems/409","title":"Order cannot be cancelled","status":409,"detail":"Order 1000 is already CANCELLED."}
+$ curl -i "http://localhost:3000/orders?status=CANCELLED"
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+Date: Tue, 08 Sep 2026 13:20:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"orders":[{"id":"1000","userId":1,"restaurantId":10,"totalAmount":250,"currency":"INR","deliveryAddress":"Hostel Block A","status":"CANCELLED","createdAt":"2026-09-08T13:20:48.040Z"}]}

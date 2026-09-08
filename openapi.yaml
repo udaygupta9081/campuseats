@@ -1,0 +1,270 @@
+openapi: 3.0.3
+
+info:
+  title: CampusEats Catalog Service API
+  description: REST API for managing CampusEats menu items
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+
+  /items:
+    get:
+      summary: Get all menu items
+      operationId: getAllItems
+      parameters:
+        - name: category
+          in: query
+          required: false
+          description: Filter menu items by category
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of menu items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuItem'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      summary: Create a new menu item
+      operationId: createItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMenuItemRequest'
+      responses:
+        '201':
+          description: Menu item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItem'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Menu item already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /items/{itemId}:
+
+    get:
+      summary: Get a menu item by ID
+      operationId: getItemById
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: Unique identifier of the menu item
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Menu item found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItem'
+        '404':
+          description: Menu item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Update a menu item
+      operationId: updateItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: Unique identifier of the menu item
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMenuItemRequest'
+      responses:
+        '200':
+          description: Menu item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItem'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Menu item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a menu item
+      operationId: deleteItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          description: Unique identifier of the menu item
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Menu item deleted successfully
+        '404':
+          description: Menu item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+
+  schemas:
+
+    MenuItem:
+      type: object
+      required:
+        - itemId
+        - name
+        - description
+        - price
+        - category
+        - available
+      properties:
+        itemId:
+          type: integer
+          format: int64
+          example: 101
+
+        name:
+          type: string
+          example: Veg Burger
+
+        description:
+          type: string
+          example: Vegetable burger with cheese and fresh vegetables
+
+        price:
+          type: number
+          format: double
+          minimum: 0
+          example: 120.00
+
+        category:
+          type: string
+          example: Burger
+
+        available:
+          type: boolean
+          example: true
+
+    CreateMenuItemRequest:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - category
+        - available
+      properties:
+        name:
+          type: string
+          example: Veg Burger
+
+        description:
+          type: string
+          example: Vegetable burger with cheese and fresh vegetables
+
+        price:
+          type: number
+          format: double
+          minimum: 0
+          example: 120.00
+
+        category:
+          type: string
+          example: Burger
+
+        available:
+          type: boolean
+          example: true
+
+    UpdateMenuItemRequest:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - category
+        - available
+      properties:
+        name:
+          type: string
+          example: Veg Burger
+
+        description:
+          type: string
+          example: Vegetable burger with cheese and fresh vegetables
+
+        price:
+          type: number
+          format: double
+          minimum: 0
+          example: 120.00
+
+        category:
+          type: string
+          example: Burger
+
+        available:
+          type: boolean
+          example: true
+
+    Error:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          example: 404
+
+        message:
+          type: string
+          example: Menu item not found

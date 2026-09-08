@@ -1,0 +1,13 @@
+{
+  "name": "campuseats-assignment4-orders",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CS543 Assignment 4 - CampusEats Orders REST service",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "node --test tests/*.test.js",
+    "validate:openapi": "node scripts/validate-openapi.js"
+  }
+}
