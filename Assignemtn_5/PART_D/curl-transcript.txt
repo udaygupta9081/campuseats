@@ -1,0 +1,214 @@
+==================================================================
+1. Successful Create -- 201 Created
+==================================================================
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> POST /restaurants HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Content-Type: application/json
+> Accept: application/json
+> Idempotency-Key: abc123
+> Content-Length: 39
+> 
+} [39 bytes data]
+< HTTP/1.1 201 Created
+< X-Powered-By: Express
+< Location: /restaurants/1
+< Content-Type: application/json; charset=utf-8
+< ETag: "restaurant-1-v1"
+< Content-Length: 46
+< Date: Tue, 22 Sep 2026 17:09:11 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [46 bytes data]
+* Connection #0 to host localhost left intact
+{"id":1,"name":"Pizza Hub","category":"Pizza"}
+
+==================================================================
+2. Repeat Create with Same Idempotency-Key -- No Duplicate
+==================================================================
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> POST /restaurants HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Content-Type: application/json
+> Accept: application/json
+> Idempotency-Key: abc123
+> Content-Length: 39
+> 
+} [39 bytes data]
+< HTTP/1.1 201 Created
+< X-Powered-By: Express
+< Location: /restaurants/1
+< Content-Type: application/json; charset=utf-8
+< ETag: "restaurant-1-v1"
+< Content-Length: 46
+< Date: Tue, 22 Sep 2026 17:09:15 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [46 bytes data]
+* Connection #0 to host localhost left intact
+{"id":1,"name":"Pizza Hub","category":"Pizza"}
+
+==================================================================
+3. Conditional GET -- Step 1: Initial GET to obtain ETag
+==================================================================
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> GET /restaurants/1 HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< ETag: "restaurant-1-v1"
+< Cache-Control: private, max-age=60
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 46
+< Date: Tue, 22 Sep 2026 17:09:20 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [46 bytes data]
+* Connection #0 to host localhost left intact
+{"id":1,"name":"Pizza Hub","category":"Pizza"}
+==================================================================
+3. Conditional GET -- Step 2: 304 Not Modified
+==================================================================
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> GET /restaurants/1 HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> If-None-Match: "restaurant-1-v1"
+> 
+< HTTP/1.1 304 Not Modified
+< X-Powered-By: Express
+< ETag: "restaurant-1-v1"
+< Cache-Control: private, max-age=60
+< Date: Tue, 22 Sep 2026 17:09:20 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+* Connection #0 to host localhost left intact
+
+==================================================================
+4. Conditional Write -- 412 Precondition Failed
+==================================================================
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> PUT /restaurants/1 HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> Content-Type: application/json
+> If-Match: "old-etag"
+> Content-Length: 19
+> 
+} [19 bytes data]
+< HTTP/1.1 412 Precondition Failed
+< X-Powered-By: Express
+< ETag: "restaurant-1-v1"
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 90
+< Date: Tue, 22 Sep 2026 17:09:25 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [90 bytes data]
+* Connection #0 to host localhost left intact
+{"error":"Precondition Failed","message":"Resource has changed; refresh before updating."}
+==================================================================
+5. Bad Request -- 400 (Malformed JSON)
+==================================================================
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> POST /restaurants HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 8
+> 
+} [8 bytes data]
+< HTTP/1.1 400 Bad Request
+< X-Powered-By: Express
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 67
+< ETag: W/"43-Yh+YMb/tHxFl+ekIma07aRCo4qY"
+< Date: Tue, 22 Sep 2026 17:09:30 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [67 bytes data]
+* Connection #0 to host localhost left intact
+{"error":"Bad Request","message":"Malformed JSON in request body."}
+==================================================================
+6. Missing Resource -- 404 Not Found
+==================================================================
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> GET /restaurants/999999 HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/1.1 404 Not Found
+< X-Powered-By: Express
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 59
+< ETag: W/"3b-qCTqpiScEb+16ktqIGr6islNbc8"
+< Date: Tue, 22 Sep 2026 17:09:30 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [59 bytes data]
+* Connection #0 to host localhost left intact
+{"error":"Not Found","message":"Restaurant does not exist"}
+==================================================================
+7. Missing Authorization -- 401 Unauthorized
+==================================================================
+* Host localhost:5000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+* Connected to localhost (127.0.0.1) port 5000
+> GET /orders/1 HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/1.1 401 Unauthorized
+< X-Powered-By: Express
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 76
+< ETag: W/"4c-so3YkQgzZwjGH095Eraz1t0OVy4"
+< Date: Tue, 22 Sep 2026 17:09:30 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+{ [76 bytes data]
+* Connection #0 to host localhost left intact
+{"error":"Unauthorized","message":"Missing or invalid Authorization header"}
